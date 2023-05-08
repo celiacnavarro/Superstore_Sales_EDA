@@ -193,3 +193,19 @@ for x,y in ship["Sales"].items():
 
 plt.tight_layout()
 plt.savefig('images/sales_by_shipping_mode.png')
+
+# Sales over time period
+
+df_line = df[['Order Date','Sales']].sort_values('Order Date') 
+df_line['Order Date'] = pd.to_datetime(df_line['Order Date'])
+df_line = df_line.groupby('Order Date').mean() 
+
+plt.figure(figsize=[8,5])
+plt.plot(df_line.index, 'Sales', data=df_line, color='#F05454') # Avg Sales over Time
+plt.title("Average Sales over Time Period(2015-2018)", pad=20)
+plt.xlabel("Time Period(2015-2018)",fontsize=10) 
+plt.ylabel("Revenue ($)",fontsize=10) 
+
+plt.tight_layout()
+plt.savefig('images/sales_over_time.png')
+plt.show()
